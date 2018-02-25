@@ -50,6 +50,9 @@ with tf.Session() as sess:
 		prediction = label_lines[top_k[0]]
 		predictionList.append(prediction)
 
+		if imageCounter==100:
+    			break
+
 # Create Submission CSV file
 results = pd.DataFrame({'ImageId': pd.Series(range(1, len(predictionList) + 1)), 'Label': pd.Series(predictionList)})
 results.to_csv('results.csv', index=False)
