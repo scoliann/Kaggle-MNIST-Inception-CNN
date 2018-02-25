@@ -6,13 +6,13 @@ This file has been adopted and modified from the label_image.py base code provid
 import tensorflow as tf
 from os import listdir
 from os.path import isfile, join
-from natsort import natsorted
+#from natsort import natsorted
 import pandas as pd
 
 # Read in photos for each class and encode
 testSetFolder = 'testSet'
 testSetPhotos = [join(testSetFolder, f) for f in listdir(testSetFolder) if isfile(join(testSetFolder, f))]
-sortedTestSetPhotos = natsorted(testSetPhotos)
+sortedTestSetPhotos = sorted(testSetPhotos)
 encodedTestSetPhotos = [tf.gfile.FastGFile(photo, 'rb').read() for photo in sortedTestSetPhotos]
 X = encodedTestSetPhotos
 
