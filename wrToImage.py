@@ -1,4 +1,3 @@
-'''
 from tkinter import *
 
 canvas_width = 500
@@ -22,9 +21,8 @@ message = Label( master, text = "Press and Drag the mouse to draw" )
 message.pack( side = BOTTOM )
     
 mainloop()
+
 '''
-
-
 from tkinter import *
 from PIL import Image
 from PIL import ImageDraw
@@ -57,3 +55,4 @@ filename = "my_drawing.jpg"
 image1.save(filename)
 
 root.mainloop()
+'''

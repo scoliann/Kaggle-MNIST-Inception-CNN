@@ -42,16 +42,13 @@ with tf.Session() as sess:
 
 		# Make a prediction
 		predictions = sess.run(softmax_tensor, {'DecodeJpeg/contents:0': image_data})
-    
 		# Sort to show labels of first prediction in order of confidence
 		top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
 
 		# Get the predicted class and add it to list of predictions
 		prediction = label_lines[top_k[0]]
+		print("prediction here", prediction)
 		predictionList.append(prediction)
-
-		if imageCounter==100:
-    			break
 
 # Create Submission CSV file
 results = pd.DataFrame({'ImageId': pd.Series(range(1, len(predictionList) + 1)), 'Label': pd.Series(predictionList)})
