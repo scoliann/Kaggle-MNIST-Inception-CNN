@@ -10,7 +10,7 @@ from os.path import isfile, join
 import pandas as pd
 
 # Read in photos for each class and encode
-testSetFolder = 'testSet'
+testSetFolder = 'testSet2'
 testSetPhotos = [join(testSetFolder, f) for f in listdir(testSetFolder) if isfile(join(testSetFolder, f))]
 sortedTestSetPhotos = sorted(testSetPhotos)
 encodedTestSetPhotos = [tf.gfile.FastGFile(photo, 'rb').read() for photo in sortedTestSetPhotos]

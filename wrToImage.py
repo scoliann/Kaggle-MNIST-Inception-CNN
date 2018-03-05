@@ -2,8 +2,8 @@ from tkinter import *
 from PIL import Image, ImageDraw
 import os
 
-canvas_width = 500
-canvas_height = 250
+canvas_width = 200
+canvas_height = 200
 white = (255, 255, 255)
 
 image1 = Image.new("RGB", (canvas_width, canvas_height), "black")
@@ -27,14 +27,19 @@ w.bind( "<B1-Motion>", paint)
 
 
 def generateImage():
+    image1.resize((28,28), Image.ANTIALIAS)
     draw.line(pointslist, white, width=10)
     w.postscript(file="my_drawing.ps", colormode='color')
-    filename = "my_drawing.jpg"
+    filename = input("enter name of file here...")
+    filename="testSet2/"+filename+".jpg"
     image1.save(filename)
+    foo=Image.open(filename)
+    foo=foo.resize((28,28),Image.ANTIALIAS)
+    foo.save(filename, quality=95)
     exit()
     
 
-frame = Frame(master, bg='grey', width=20, height=40)
+frame = Frame(master, bg='grey', width=200, height=200)
 frame.pack(fill='x')
 button1=Button(frame, text='Make image', command=generateImage)
 button1.pack(side='left', padx=10)
