@@ -90,6 +90,7 @@ def multipleCanvas(num):
         image1.resize((28,28), Image.ANTIALIAS)
         draw.line(pointslist, white, width=25)
         w.postscript(file="my_drawing.ps", colormode='color')
+        w.destroy()
         filename="testSet2/"+str(num)+".jpg"
         image1.save(filename)
         foo=Image.open(filename)
@@ -97,7 +98,8 @@ def multipleCanvas(num):
         foo.save(filename, quality=95)
         if num==9:
             pleaseClassify()
-            input("Enter to quit")
+            ans=int(input("How many did I get wrong: "))
+            print("Accuracy is ", str(((10-ans)/10)*100)+ " percent")
             exit()
         multipleCanvas(num+1)
     
