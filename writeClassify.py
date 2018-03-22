@@ -99,6 +99,7 @@ def multipleCanvas(num):
             pleaseClassify()
             ans=int(input("How many did I get wrong: "))
             print("Accuracy is ", str(((10-ans)/10)*100)+ " percent")
+            print("Thanks for your feedback")
             exit()
         multipleCanvas(num+1)
     
