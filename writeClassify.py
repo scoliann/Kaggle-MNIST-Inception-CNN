@@ -90,7 +90,6 @@ def multipleCanvas(num):
         image1.resize((28,28), Image.ANTIALIAS)
         draw.line(pointslist, white, width=25)
         w.postscript(file="my_drawing.ps", colormode='color')
-        w.destroy()
         filename="testSet2/"+str(num)+".jpg"
         image1.save(filename)
         foo=Image.open(filename)
