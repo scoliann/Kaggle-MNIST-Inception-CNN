@@ -10,6 +10,12 @@ from os.path import isfile, join
 #from natsort import natsorted
 import pandas as pd
 
+def printPrediction(lisimage, lenimage):
+    for imageCounter in range(lenimage):
+        print('On Image ' + str(imageCounter+1) + '/' + str(lenimage))
+        print("prediction here", lisimage[imageCounter])
+
+    
 def pleaseClassify():
     # Read in photos for each class and encode
     testSetFolder = 'testSet2'
@@ -41,7 +47,6 @@ def pleaseClassify():
 
             # Print image coutner to terminal
             imageCounter += 1
-            print('On Image ' + str(imageCounter) + '/' + str(len(X)))
 
             # Make a prediction
             predictions = sess.run(softmax_tensor, {'DecodeJpeg/contents:0': image_data})
@@ -50,15 +55,18 @@ def pleaseClassify():
 
             # Get the predicted class and add it to list of predictions
             prediction = label_lines[top_k[0]]
-            print("prediction here", prediction)
             predictionList.append(prediction)
+    printPrediction(predictionList, len(X))
 
     # Create Submission CSV file
     results = pd.DataFrame({'ImageId': pd.Series(range(1, len(predictionList) + 1)), 'Label': pd.Series(predictionList)})
     results.to_csv('results.csv', index=False)
 
 
-
+def calculateAccuracy():
+    ans=int(input("How many did I get wrong: "))
+    print("Accuracy is ", str(((10-ans)/10)*100)+ " percent")
+    print("Thanks for your feedback")
 
 
 def multipleCanvas(num):
@@ -97,9 +105,7 @@ def multipleCanvas(num):
         foo.save(filename, quality=95)
         if num==9:
             pleaseClassify()
-            ans=int(input("How many did I get wrong: "))
-            print("Accuracy is ", str(((10-ans)/10)*100)+ " percent")
-            print("Thanks for your feedback")
+            calculateAccuracy()
             exit()
         multipleCanvas(num+1)
     
@@ -112,3 +118,4 @@ def multipleCanvas(num):
     w.mainloop()
 
 multipleCanvas(0)
+
