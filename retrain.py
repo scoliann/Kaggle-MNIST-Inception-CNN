@@ -1239,7 +1239,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--output_graph',
       type=str,
-      default='/tmp/output_graph.pb',
+      default="Users\JesuyeDavid\Documents\InceptionV3NumberRecognition\improvedNN.pb",
       help='Where to save the trained graph.'
   )
   parser.add_argument(
