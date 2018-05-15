@@ -6,21 +6,22 @@ This file has been adopted and modified from the label_image.py base code provid
 import tensorflow as tf
 from os import listdir
 from os.path import isfile, join
-from natsort import natsorted
+#from natsort import natsorted
 import pandas as pd
 
 # Read in photos for each class and encode
-testSetFolder = 'testSet'
+testSetFolder = 'testSet2'
 testSetPhotos = [join(testSetFolder, f) for f in listdir(testSetFolder) if isfile(join(testSetFolder, f))]
-sortedTestSetPhotos = natsorted(testSetPhotos)
+sortedTestSetPhotos = testSetPhotos #sorted(testSetPhotos)
+print("hersomeooooo",  testSetPhotos)
 encodedTestSetPhotos = [tf.gfile.FastGFile(photo, 'rb').read() for photo in sortedTestSetPhotos]
 X = encodedTestSetPhotos
 
 # Loads label file, strips off carriage return
-label_lines = [line.rstrip() for line in tf.gfile.GFile("retrained_labels.txt")]
+label_lines = [line.rstrip() for line in tf.gfile.GFile("newoutput_labels.txt")]
 
 # Unpersists graph from file
-with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
+with tf.gfile.FastGFile("newoutput_graph.pb", 'rb') as f:
 	graph_def = tf.GraphDef()
 	graph_def.ParseFromString(f.read())
 	_ = tf.import_graph_def(graph_def, name='')
@@ -42,12 +43,12 @@ with tf.Session() as sess:
 
 		# Make a prediction
 		predictions = sess.run(softmax_tensor, {'DecodeJpeg/contents:0': image_data})
-    
 		# Sort to show labels of first prediction in order of confidence
 		top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
 
 		# Get the predicted class and add it to list of predictions
 		prediction = label_lines[top_k[0]]
+		print("prediction here", prediction)
 		predictionList.append(prediction)
 
 # Create Submission CSV file
